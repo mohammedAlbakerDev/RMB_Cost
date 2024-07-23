@@ -1,0 +1,402 @@
+	  <!DOCTYPE html>
+	  <html lang="en">
+	  <head>
+		  <meta charset="UTF-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <link rel="manifest" href="/manifest.json">
+
+		  <title>خادم</title>
+		  <style>
+			  body {
+				  font-family: sans-serif;
+				  text-align: center;
+				  background-color:#ffffffcb ;
+			  }
+			  input[type="number"] {
+				  width: 100px;
+				  padding: 5px;
+				  border: 1px solid #ccc;
+				  margin: 10px;
+			  }
+			  button {
+				  padding: 10px 20px;
+				  background-color: #1f5021;
+				  color: white;
+				  border: none;
+				  cursor: pointer;
+				  border-radius: 50px;
+				  width: 300px;
+			  }
+			  p {
+				  font-size: 18px;
+				  margin-top: 20px;
+			  }
+			  .font{
+				  font-family: Sans-serif;
+				  font-weight: bold;
+			  }
+			  .label{
+				  display: block;
+			  }
+			  .input{
+				  display: block;
+				  text-align: center;
+				  border-radius: 50px;
+			  }
+			  .titleLine{
+				  position: relative;
+				  top: -30px;
+				  right: -300px;
+			  }
+			  .move{
+				  transition: transform 2s ease-in-out;
+			  }
+			  .move:hover{
+				  transform: rotate(360deg);
+			  }
+		  </style>
+	  </head>
+	  <body>
+		  <h1 class="move"><span style='font-size:30px;'>&#128178;</span></h1>
+		  <hr style="height: 10px;background-color:#1b501b; border-radius: 50px; width: 70%;">
+	  
+		  <div class="font" style="display: flex;justify-content: space-evenly;">
+			  <div >
+				  <label class="font label" >RMB سعر صرف</label>
+				  <input  class="font input"  type="number" value="7.22" id="rmbCount" placeholder="RMB سعر صرف">
+			  </div>
+			  <div class="move">
+				  <label class="move font label"><span class="move" style='font-size:30px;'>&#129335;</span></label>
+				  <input  class=" font input" type="number" value="160" id="dont" placeholder="???">
+			  </div>
+			  <div style="position: relative;top: 20px;">
+				  <label   class="font label">الزيادة دولار</label>
+				  <input class=" font input" type="number" id="dolarPlus" value="8" placeholder="الزيادة دولار"><br>
+			  </div>
+			  <div>
+				  <label class="font label">سعر صرف الدولار</label>
+				  <input class=" font input" type="number" value="1500" id="dolarPrice" placeholder="سعر صرف الدولار">
+			  </div>
+		  </div>
+	  
+		  <hr style="height: 10px;background-color:#1b501b; border-radius: 50px; width: 70%;">
+	  
+		  <div style="display: flex;justify-content: space-evenly;width: 50%;margin-left: auto;margin-right: auto;">
+			  <div>
+				  <label class="font label">CBM</label>
+				  <input class="input" type="number"id="cbm" placeholder="CBM" >
+			  </div>
+			  <div>
+				  <label class="font label">السعر</label>
+				  <input class="input" type="number" id="priceInput"  placeholder="السعر (RMB)">
+			  </div>
+			  <div>
+				  <label class="font label">العدد</label>
+				  <input  class="input"type="number"  id="countInput" placeholder="العدد">
+			  </div>
+		  </div>
+		  <br>
+		  <button class="font" onclick="calculateTotal()">احسب (الدولار)</button>
+		  <br>
+		  <br>
+		  <div class="" style="display: flex;flex-direction: row-reverse;justify-content: space-around;">
+			  <div style="width: 70%;">
+				  <div  style="width: 50%;margin-left: auto; margin-right: auto; border: 2px solid #908842; border-radius: 50px; margin-bottom: 19px; display: flex;align-content: center;justify-content: center;">
+					  <h3 style='align-content: normal;' class="titleLine">قطعة</h3>
+					  <div style="display: flex;justify-content: space-between;">
+						  <p style="margin-right: 30%;" class="font" id="iraqi"></p>
+						  <p class="font" id="result"></p>
+					  </div>
+				  </div>
+				  <div  style="width: 50%;margin-left: auto; margin-right: auto; border: 2px solid #908842; border-radius: 50px; margin-bottom: 19px; display: flex;align-content: center;justify-content: center;">
+					  <h3 style='align-content: normal;' class="titleLine">كارتون</h3>
+					  <span class="titleLine" style='font-size:30px;'>&#128230;</span>
+					  <div style="display: flex;justify-content: space-between;">
+						  <p style="margin-right: 50%;" class="font" id="cartonDinar"></p>
+						  <p class="font" id="cartonDolar"></p>
+					  </div>
+				  </div>
+			  </div>
+			  <div title="ربح" id="profit" style="display: none; width: 20%;justify-content: flex-start;flex-direction:column;">
+				  <div style="margin-top: -100px;">
+					  <label title="ادخل دولار او دينار" class="font label">اضافة الى كل قطعة</label>
+					 <div style="display: flex;justify-content: space-around;">
+						 <label  class="font label">دينار</label>
+						<label  class="font label">دولار</label>
+
+						 
+						</div> 
+					 <div style="display: flex;">
+
+						 <input style="display: inline;"  title="اضافة الدينار الى كل قطع" style="margin-left: 80px;"  class="input"type="number" id="dinarProfit" placeholder="دينار">
+						 <input style="display: inline;" title="اضافة الدولار الى كل قطع" style="margin-left: 80px;"  class="input"type="number" id="centProfit" placeholder="دولار">
+						</div> 
+				  </div> 
+				  <div style="margin-top: 0px;">
+					  <label  class="font label">يعني اذا بيع ب</label>
+					 <div style="display: flex;">
+
+						 <input style="display: inline;" title="اذا بيع بالدينار" style="margin-left: 80px;"  class="input"type="number" id="dinarPlusTotal" placeholder="دينار">
+						 <input style="display: inline;" title="اذا بيع بالدولار" style="margin-left: 80px;"  class="input"type="number" id="DolarPlusTotal" placeholder="دولار">
+						</div> 
+				  </div> 
+				  <span style="font-size:50px;margin-top: -20px;">&#8595;</span>
+				  <label class="font label">ربح الكارتون</label>
+				 <div>
+
+				</div> 
+				<div style="display: flex;" >
+
+					<div style="display: inline; border: 2px solid #908842; border-radius: 50px; margin-bottom: 19px; display: flex;align-content: center;justify-content: center;">
+						<div style="display: flex;justify-content: space-between;">
+							<input style="border: none;" placeholder="ربح الكارتون دينار" class="input" type="number" title="ربح الكارتون دينار" id="profitOfCarton">
+							
+						</div>
+					</div>
+					<div style="display: inline; border: 2px solid #908842; border-radius: 50px; margin-bottom: 19px; display: flex;align-content: center;justify-content: center;">
+						<div style="display: flex;justify-content: space-between;">
+							<input style="border: none;" placeholder="ربح الكارتون دولار" class="input" type="number" title="ربح الكارتون دولار" id="DolarProfitOfCarton">
+							
+						</div>
+					</div>
+				</div>	
+				<button title="صفر الخرابيط" id="clearButton">امسح</button>
+				</div>
+		  </div>
+	  
+		  <script>
+			
+			document.getElementById('clearButton').addEventListener('click', function() {
+            const dinarProfitInput = document.getElementById('dinarProfit');
+            const dinarPlusTotalInput = document.getElementById('dinarPlusTotal');
+            const profitOfCarton = document.getElementById('profitOfCarton');
+            const DolarProfitOfCarton = document.getElementById('DolarProfitOfCarton');
+            const centProfit = document.getElementById('centProfit');
+            const DolarPlusTotal = document.getElementById('DolarPlusTotal');
+
+            dinarProfitInput.value = '';
+            dinarPlusTotalInput.value = '';
+            profitOfCarton.value = '';
+            DolarProfitOfCarton.value = '';
+            centProfit.value = '';
+            DolarPlusTotal.value = '';
+        });
+			 let price, count, rmbCount, dolarPlus, dolarPrice, CBM, dont, total, dinarProfit;
+
+function updateGlobals() {
+	price = parseFloat(document.getElementById("priceInput").value);
+	count = parseInt(document.getElementById("countInput").value);
+	rmbCount = parseFloat(document.getElementById("rmbCount").value);
+	dolarPlus = parseFloat(document.getElementById("dolarPlus").value);
+	dolarPrice = parseFloat(document.getElementById("dolarPrice").value);
+	CBM = parseFloat(document.getElementById("cbm").value);
+	dont = parseFloat(document.getElementById("dont").value);
+	total = (((price / rmbCount) * count) + dolarPlus) / count;
+	dinarProfit = parseFloat(document.getElementById("dinarProfit").value);
+}
+			  
+			//   // get the rmb price
+			//   let price = parseFloat(document.getElementById("priceInput").value);
+			//   // get the count number
+			//   let count = parseInt(document.getElementById("countInput").value);
+			//   // get the rmb national price front of dolar
+			//   let rmbCount = parseFloat(document.getElementById("rmbCount").value);
+			//   // get the dolar plus value
+			//   let dolarPlus = parseFloat(document.getElementById("dolarPlus").value);
+			//   // get dolar value front dinar value
+			//   let dolarPrice = parseFloat(document.getElementById("dolarPrice").value);
+			//   // get cbm value
+			//   let CBM = parseFloat(document.getElementById("cbm").value);
+			//   // ????
+			//   let dont = parseFloat(document.getElementById("dont").value);
+			//   let total = (((price / rmbCount) * count) + dolarPlus) / count; // Calculate price per item
+	  
+			//   // get the profit dinar value
+			//   let dinarProfit = parseFloat(document.getElementById("dinarProfit").value);
+		  function calculateTotal() {
+				updateGlobals()
+			  if (isNaN(price) || isNaN(count)) {
+				  alert("ادخل العدد والسعر");
+				  return; // Exit the function if invalid input
+			  }
+	  
+			  let cartonTotal = total * count; // Calculate price per carton
+	  
+			  document.getElementById("result").innerHTML = `دولار: ${total.toFixed(2)}&nbsp;<span style='font-size:20px;'>&#128178;</span>`;
+			  document.getElementById("iraqi").textContent = `دينار: ${numberWithCommas((total * dolarPrice).toFixed(1))}`;
+	  
+			  document.getElementById('cartonDolar').innerHTML = `دولار: ${cartonTotal.toFixed(2)}&nbsp;<span style='font-size:20px;'>&#128178;</span>`;
+			  document.getElementById('cartonDinar').textContent = `دينار: ${numberWithCommas((cartonTotal * dolarPrice).toFixed(1))}`;
+	  
+			  let CartonProfit = dinarProfit * count || 0;
+			  document.getElementById('profitOfCarton').textContent = `${numberWithCommas(CartonProfit)}`;
+			  document.getElementById('dinarPlusTotal').value = (total * dolarPrice + dinarProfit).toFixed(1);
+			  document.getElementById('profit').style.display = 'flex'; // Show profit section
+		  }
+	  
+		  function numberWithCommas(x) {
+			  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		  }
+	  
+		  function dolarCalc() {
+			updateGlobals()
+			  const cbm = parseFloat(document.getElementById("cbm").value) || 0; // Default to 0 if empty
+			  const dont = parseFloat(document.getElementById("dont").value) || 0; // Default to 0 if empty
+	  
+			  let sum = cbm * dont;
+			  document.getElementById("dolarPlus").value = sum;
+		  }
+	  
+		  // Add keydown event listener to count input
+		  const countInput = document.getElementById("countInput");
+		  countInput.addEventListener("keydown", function(event) {
+			  if (event.key === "Enter") {
+				  calculateTotal();
+			  }
+		  });
+	  
+		  const cbmInput = document.getElementById('cbm');
+		  cbmInput.addEventListener("input", dolarCalc);
+	  
+
+
+
+
+
+
+		//   operation
+		  const dinarProfitInput = document.getElementById('dinarProfit');
+		  const dinarPlusTotalInput = document.getElementById('dinarPlusTotal');
+		  const profitOfCarton = document.getElementById('profitOfCarton');
+	      const DolarProfitOfCarton = document.getElementById('DolarProfitOfCarton');
+		  const centProfit = document.getElementById('centProfit');
+		  const DolarPlusTotal = document.getElementById('DolarPlusTotal');
+	
+	      // dinar profit calc
+		  dinarProfitInput.addEventListener('input',profitCalc);
+		  function profitCalc(){
+			updateGlobals()
+
+				dinarPlusTotalInput.value = (parseFloat(dinarProfitInput.value) + total * dolarPrice).toFixed(1); 
+				profitOfCarton.value = parseFloat(dinarProfitInput.value * count || 0);
+			  convertToDolar();
+			}
+
+
+	  
+		 	// dinar plus total calc
+		  dinarPlusTotalInput.addEventListener('input',dinarPlusTotalCalc);
+		  function dinarPlusTotalCalc(){
+			updateGlobals()
+
+			dinarProfitInput.value = (parseFloat(dinarPlusTotalInput.value) - total * dolarPrice).toFixed(1); 
+			profitOfCarton.value = (parseFloat(dinarProfitInput.value * count || 0)).toFixed(1); ;
+			
+
+		// 	//   profitCalc();
+			  convertToDolar();
+		// 	// centProfit.value = dinarProfitInput.value / dolarPrice;
+		// 	// DolarProfitOfCarton.value = profitOfCarton.value / dolarPrice;
+		  };
+
+
+		//   // carton profit calc
+		  profitOfCarton.addEventListener('input',CartonProfitCacl );
+
+		  function CartonProfitCacl(){
+			updateGlobals()
+
+			dinarProfitInput.value = (parseFloat(profitOfCarton.value) / count).toFixed(1); 
+			dinarPlusTotalInput.value = (parseFloat(dinarProfitInput.value) + total * dolarPrice).toFixed(1); 
+		// 		document.getElementById('dinarProfit').value = profitOfCarton.value / count
+		// 		const dinar = parseFloat(document.getElementById('dinarProfit').value);
+		// 		document.getElementById('dinarPlusTotal').value =  total * dolarPrice + dinar;
+				convertToDolar();
+		// 		// centProfit.value = dinarProfitInput.value / dolarPrice;
+		// 		// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
+		  };
+
+
+
+		  // dolar convertor
+		  DolarProfitOfCarton.addEventListener('input',function(){
+			CartonProfitCacl2();
+		  });
+		function CartonProfitCacl2(){
+			updateGlobals()
+
+			dinarProfitInput.value = (parseFloat(profitOfCarton.value) / count).toFixed(1); 
+			dinarPlusTotalInput.value = (parseFloat(dinarProfitInput.value) + total * dolarPrice).toFixed(1); 
+			profitOfCarton.value = (DolarProfitOfCarton.value * dolarPrice).toFixed(1);
+			centProfit.value = (dinarProfitInput.value / dolarPrice).toFixed(1);
+			DolarPlusTotal.value = (dinarPlusTotalInput.value / dolarPrice).toFixed(1);
+			// 		document.getElementById('dinarProfit').value = profitOfCarton.value / count
+		// 		const dinar = parseFloat(document.getElementById('dinarProfit').value);
+		// 		document.getElementById('dinarPlusTotal').value =  total * dolarPrice + dinar;
+				// convertToDolar();
+		// 		// centProfit.value = dinarProfitInput.value / dolarPrice;
+		// 		// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
+		  };
+
+		  centProfit.addEventListener('input',function(){
+			dinarProfitInput.value = (parseFloat(this.value) * dolarPrice.toFixed(1));
+			profitCalc2();	
+
+		  });
+		  function profitCalc2(){
+			updateGlobals()
+
+				dinarPlusTotalInput.value = (parseFloat(dinarProfitInput.value) + total * dolarPrice).toFixed(1); 
+				profitOfCarton.value = (parseFloat(dinarProfitInput.value * count || 0)).toFixed(1);
+				DolarProfitOfCarton.value = (profitOfCarton.value / dolarPrice).toFixed(1);
+			// centProfit.value = dinarProfitInput.value / dolarPrice;
+			DolarPlusTotal.value = (dinarPlusTotalInput.value / dolarPrice).toFixed(1);
+			}
+		  DolarPlusTotal.addEventListener('input',function(){
+			dinarPlusTotalInput.value = (this.value * dolarPrice).toFixed(1);
+			dinarPlusTotalCalc2()
+		  });
+		function dinarPlusTotalCalc2(){
+			updateGlobals()
+
+			dinarProfitInput.value = (parseFloat(dinarPlusTotalInput.value) - total * dolarPrice).toFixed(1); 
+			profitOfCarton.value = (parseFloat(dinarProfitInput.value * count || 0)).toFixed(1);
+			DolarProfitOfCarton.value = (profitOfCarton.value / dolarPrice).toFixed(1);
+			centProfit.value = (dinarProfitInput.value / dolarPrice).toFixed(1);
+			// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
+
+		// 	//   profitCalc();
+			//   convertToDolar();
+		// 	// centProfit.value = dinarProfitInput.value / dolarPrice;
+		// 	// DolarProfitOfCarton.value = profitOfCarton.value / dolarPrice;
+		  };
+
+
+
+
+		  function convertToDolar(){
+			updateGlobals()
+
+			DolarProfitOfCarton.value = (profitOfCarton.value / dolarPrice).toFixed(2);
+			centProfit.value = (dinarProfitInput.value / dolarPrice).toFixed(2);
+			DolarPlusTotal.value = (dinarPlusTotalInput.value / dolarPrice).toFixed(2);
+
+
+
+		  }
+		   if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registered with scope:', registration.scope);
+      }).catch(function(error) {
+        console.log('Service Worker registration failed:', error);
+      });
+    }
+
+		  
+		  
+		  
+		  </script>
+	  </body>
+	  </html>
+	  
