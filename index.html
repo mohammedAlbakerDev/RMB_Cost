@@ -55,6 +55,20 @@
 			  .move:hover{
 				  transform: rotate(360deg);
 			  }
+			  #resetButton {
+    padding: 10px 20px;
+    background-color: #d9534f; /* Red color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    width: 150px;
+    font-weight: bold;
+    font-size: 16px;
+}
+#resetButton:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
 		  </style>
 	  </head>
 	  <body>
@@ -64,7 +78,7 @@
 		  <div class="font" style="display: flex;justify-content: space-evenly;">
 			  <div >
 				  <label class="font label" >RMB سعر صرف</label>
-				  <input  class="font input"  type="number" value="7.22" id="rmbCount" placeholder="RMB سعر صرف">
+				  <input  class="font input"  type="number"  id="rmbCount" placeholder="RMB سعر صرف">
 			  </div>
 			  <div class="move">
 				  <label class="move font label"><span class="move" style='font-size:30px;'>&#129335;</span></label>
@@ -95,12 +109,14 @@
 				  <label class="font label">العدد</label>
 				  <input  class="input"type="number"  id="countInput" placeholder="العدد">
 			  </div>
+			  
 		  </div>
 		  <br>
-		  <button class="font" onclick="calculateTotal()">احسب (الدولار)</button>
+		  <button class="font" id="clacButton" style="margin-left: auto;margin-right: auto;"  onclick="calculateTotal()">احسب</button>
+		  <button class="font" id="resetButton" style="display: none;margin-left: auto;margin-right: auto;"> احسب مرة اخرى</button>
 		  <br>
 		  <br>
-		  <div class="" style="display: flex;flex-direction: row-reverse;justify-content: space-around;">
+		  <div class=""  style="display: flex;flex-direction: row-reverse;justify-content: space-around;">
 			  <div style="width: 70%;">
 				  <div  style="width: 50%;margin-left: auto; margin-right: auto; border: 2px solid #908842; border-radius: 50px; margin-bottom: 19px; display: flex;align-content: center;justify-content: center;">
 					  <h3 style='align-content: normal;' class="titleLine">قطعة</h3>
@@ -166,7 +182,69 @@
 		  </div>
 	  
 		  <script>
-			
+			// Set default value for RMB price
+			const defaultRMBPrice = 7;
+
+			// Set default values
+			const defaultValues = {
+        dont: 160,
+        dolarPlus: 8,
+        dolarPrice: 1500
+    };
+        const rmbInput = document.getElementById('rmbCount');
+
+        // Function to load the RMB price from localStorage or set it to default
+        function loadRMBPrice() {
+            const savedPrice = localStorage.getItem('rmbPrice');
+            if (savedPrice) {
+                rmbInput.value = savedPrice;  // Use the saved value
+            } else {
+                rmbInput.value = defaultRMBPrice;  // Use the default value if no saved value
+            }
+        }
+
+        // Function to save the RMB price to localStorage whenever it's changed
+        function saveRMBPrice() {
+            const currentPrice = rmbInput.value;
+            localStorage.setItem('rmbPrice', currentPrice);  // Save the current value to localStorage
+        }
+
+        // Load the RMB price when the page is loaded
+        window.onload = loadRMBPrice;
+
+        // Add event listener to save the value when the input field is changed
+        rmbInput.addEventListener('input', saveRMBPrice);
+
+
+
+		function loadValues() {
+        const dontValue = localStorage.getItem('dont') || defaultValues.dont;
+        const dolarPlusValue = localStorage.getItem('dolarPlus') || defaultValues.dolarPlus;
+        const dolarPriceValue = localStorage.getItem('dolarPrice') || defaultValues.dolarPrice;
+
+        document.getElementById('dont').value = dontValue;
+        document.getElementById('dolarPlus').value = dolarPlusValue;
+        document.getElementById('dolarPrice').value = dolarPriceValue;
+    }
+
+    // Function to save values to localStorage
+    function saveValues() {
+        localStorage.setItem('dont', document.getElementById('dont').value);
+        localStorage.setItem('dolarPlus', document.getElementById('dolarPlus').value);
+        localStorage.setItem('dolarPrice', document.getElementById('dolarPrice').value);
+    }
+
+    // Load values when the page loads
+    window.onload = function() {
+        loadRMBPrice();
+        loadValues();
+    };
+
+    // Add event listeners to save values when input fields change
+    document.getElementById('dont').addEventListener('input', saveValues);
+    document.getElementById('dolarPlus').addEventListener('input', saveValues);
+    document.getElementById('dolarPrice').addEventListener('input', saveValues);
+
 			document.getElementById('clearButton').addEventListener('click', function() {
             const dinarProfitInput = document.getElementById('dinarProfit');
             const dinarPlusTotalInput = document.getElementById('dinarPlusTotal');
@@ -196,30 +274,14 @@ function updateGlobals() {
 	dinarProfit = parseFloat(document.getElementById("dinarProfit").value);
 }
 			  
-			//   // get the rmb price
-			//   let price = parseFloat(document.getElementById("priceInput").value);
-			//   // get the count number
-			//   let count = parseInt(document.getElementById("countInput").value);
-			//   // get the rmb national price front of dolar
-			//   let rmbCount = parseFloat(document.getElementById("rmbCount").value);
-			//   // get the dolar plus value
-			//   let dolarPlus = parseFloat(document.getElementById("dolarPlus").value);
-			//   // get dolar value front dinar value
-			//   let dolarPrice = parseFloat(document.getElementById("dolarPrice").value);
-			//   // get cbm value
-			//   let CBM = parseFloat(document.getElementById("cbm").value);
-			//   // ????
-			//   let dont = parseFloat(document.getElementById("dont").value);
-			//   let total = (((price / rmbCount) * count) + dolarPlus) / count; // Calculate price per item
-	  
-			//   // get the profit dinar value
-			//   let dinarProfit = parseFloat(document.getElementById("dinarProfit").value);
 		  function calculateTotal() {
 				updateGlobals()
 			  if (isNaN(price) || isNaN(count)) {
 				  alert("ادخل العدد والسعر");
 				  return; // Exit the function if invalid input
 			  }
+			  document.getElementById('resetButton').style.display = 'block'; // Show reset button
+			  document.getElementById('clacButton').style.display = 'none'; // Show reset button
 	  
 			  let cartonTotal = total * count; // Calculate price per carton
 	  
@@ -234,6 +296,7 @@ function updateGlobals() {
 			  document.getElementById('dinarPlusTotal').value = (total * dolarPrice + dinarProfit).toFixed(1);
 			  document.getElementById('profit').style.display = 'flex'; // Show profit section
 		  }
+		  
 	  
 		  function numberWithCommas(x) {
 			  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -293,11 +356,8 @@ function updateGlobals() {
 			dinarProfitInput.value = (parseFloat(dinarPlusTotalInput.value) - total * dolarPrice).toFixed(1); 
 			profitOfCarton.value = (parseFloat(dinarProfitInput.value * count || 0)).toFixed(1); ;
 			
-
-		// 	//   profitCalc();
 			  convertToDolar();
-		// 	// centProfit.value = dinarProfitInput.value / dolarPrice;
-		// 	// DolarProfitOfCarton.value = profitOfCarton.value / dolarPrice;
+	
 		  };
 
 
@@ -309,12 +369,9 @@ function updateGlobals() {
 
 			dinarProfitInput.value = (parseFloat(profitOfCarton.value) / count).toFixed(1); 
 			dinarPlusTotalInput.value = (parseFloat(dinarProfitInput.value) + total * dolarPrice).toFixed(1); 
-		// 		document.getElementById('dinarProfit').value = profitOfCarton.value / count
-		// 		const dinar = parseFloat(document.getElementById('dinarProfit').value);
-		// 		document.getElementById('dinarPlusTotal').value =  total * dolarPrice + dinar;
+		
 				convertToDolar();
-		// 		// centProfit.value = dinarProfitInput.value / dolarPrice;
-		// 		// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
+
 		  };
 
 
@@ -331,12 +388,6 @@ function updateGlobals() {
 			profitOfCarton.value = (DolarProfitOfCarton.value * dolarPrice).toFixed(1);
 			centProfit.value = (dinarProfitInput.value / dolarPrice).toFixed(1);
 			DolarPlusTotal.value = (dinarPlusTotalInput.value / dolarPrice).toFixed(1);
-			// 		document.getElementById('dinarProfit').value = profitOfCarton.value / count
-		// 		const dinar = parseFloat(document.getElementById('dinarProfit').value);
-		// 		document.getElementById('dinarPlusTotal').value =  total * dolarPrice + dinar;
-				// convertToDolar();
-		// 		// centProfit.value = dinarProfitInput.value / dolarPrice;
-		// 		// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
 		  };
 
 		  centProfit.addEventListener('input',function(){
@@ -364,12 +415,7 @@ function updateGlobals() {
 			profitOfCarton.value = (parseFloat(dinarProfitInput.value * count || 0)).toFixed(1);
 			DolarProfitOfCarton.value = (profitOfCarton.value / dolarPrice).toFixed(1);
 			centProfit.value = (dinarProfitInput.value / dolarPrice).toFixed(1);
-			// DolarPlusTotal.value = dinarPlusTotalInput.value / dolarPrice;
-
-		// 	//   profitCalc();
-			//   convertToDolar();
-		// 	// centProfit.value = dinarProfitInput.value / dolarPrice;
-		// 	// DolarProfitOfCarton.value = profitOfCarton.value / dolarPrice;
+		
 		  };
 
 
@@ -385,6 +431,20 @@ function updateGlobals() {
 
 
 		  }
+		  document.getElementById('resetButton').addEventListener('click', function() {
+    document.getElementById('cbm').value = '';
+    document.getElementById('priceInput').value = '';
+    document.getElementById('countInput').value = '';
+	document.getElementById("profit").style.display = 'none';
+	document.getElementById("resetButton").style.display = 'none';
+	document.getElementById("clacButton").style.display = 'block';
+	document.getElementById("iraqi").innerHTML='';
+	document.getElementById("result").innerHTML='';
+	document.getElementById("cartonDolar").innerHTML='';
+	document.getElementById("cartonDinar").innerHTML='';
+
+});
+		 
 		   if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/RMB_Cost/service-worker.js')
       .then(function(registration) {
@@ -395,6 +455,7 @@ function updateGlobals() {
     }
 
 		  
+
 		  
 		  
 		  </script>
