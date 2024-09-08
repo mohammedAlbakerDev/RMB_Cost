@@ -1,6 +1,6 @@
 {
-  "name": "My PWA",
-  "short_name": "PWA",
+  "name": "calc",
+  "short_name": "calc",
   "start_url": "/RMB_Cost/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
